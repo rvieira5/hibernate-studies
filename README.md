@@ -68,3 +68,17 @@ SHOW TABLES;
 ```
 
 You should see a list of tables from the `sakila` database.
+
+### Test Database Connection
+
+To test the connection with the MySQL database, run the following command:
+
+```bash
+mvn compile
+mvn exec:java -Dexec.mainClass="com.andcelsode.DatabaseConnectionTest"
+```
+If the connection is successful, you will see the message:
+
+```bash
+Database connection successfully established!
+```
