@@ -72,6 +72,7 @@
                         <eclipse></eclipse>
                         <importOrder></importOrder>
                         <removeUnusedImports></removeUnusedImports>
+                        <endWithNewline></endWithNewline>
                     </java>
                 </configuration>
             </plugin>
