@@ -4,7 +4,9 @@ import com.andcelsode.exception.ValidationException;
 import com.andcelsode.model.Actor;
 import com.andcelsode.repository.ActorRepository;
 import com.andcelsode.util.ValidationUtils;
+import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -28,7 +30,11 @@ public class ActorService {
     public Actor saveActor(Actor actor) {
         ValidationUtils.validateActor(actor);
         actor.setLastUpdate(LocalDateTime.now());
-        return actorRepository.save(actor);
+        try {
+            return actorRepository.save(actor);
+        } catch (DataAccessException ex) {
+            throw new ServiceException("Failed to save actor due to a database error", ex);
+        }
     }
 
     public Actor updateActor(Short id, Actor actorDetails) {
