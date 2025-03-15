@@ -1,10 +1,12 @@
-# Database and Docker Setup
+# Spring Boot Application with MySQL and Docker Setup
 
-This guide explains how to set up the MySQL database and Docker for the project.
+This guide explains how to set up and run the Spring Boot application with MySQL database using Docker.
 
 ## Prerequisites
 
-- Docker installed (already available in GitHub Codespaces).
+- Docker installed
+- Maven installed
+- Java 21
 
 ## Setup Steps
 
@@ -12,73 +14,65 @@ This guide explains how to set up the MySQL database and Docker for the project.
 
 In the root directory of the project, run the following command to start MySQL in a Docker container:
 
-```
+```bash
 docker-compose up -d
 ```
 
-This will download the MySQL image and start the container.
+This command will download the MySQL image and start the container.
 
-### 2. Download and Import the `sakila` Database
+### 2. Configure the Database
 
-The `sakila` database is not included in the repository. Follow the steps below to download and import the database:
+The application is configured to use the Sakila database.
 
-#### a. Download the `sakila` Database
-
-Run the following command to download the `sakila` database:
-
+a. Download the database:
 ```bash
 wget https://downloads.mysql.com/docs/sakila-db.tar.gz
 ```
 
-#### b. Extract the Files
-
-Extract the downloaded files:
-
+b. Extract the files:
 ```bash
 tar -xvzf sakila-db.tar.gz
 ```
 
-This will create a folder named `sakila-db` containing the files `sakila-schema.sql` and `sakila-data.sql`.
-
-#### c. Import the Schema and Data
-
-Import the schema and data into the MySQL container:
-
+c. Import the schema and data:
 ```bash
 docker exec -i mysql_db mysql -u root -proot -e "CREATE DATABASE IF NOT EXISTS sakila;"
 docker exec -i mysql_db mysql -u root -proot sakila < sakila-db/sakila-schema.sql
 docker exec -i mysql_db mysql -u root -proot sakila < sakila-db/sakila-data.sql
 ```
 
-When prompted, enter the root password (`root`).
+### 3. Build and Run the Application
 
-### 3. Verify the Database
-
-To verify that the database was imported correctly, access MySQL:
-
+Build the application using Maven:
 ```bash
-docker exec -it mysql_db mysql -u root -proot
+mvn clean install
 ```
 
-In the MySQL prompt, run:
-
+Run the Spring Boot application:
 ```bash
-USE sakila;
-SHOW TABLES;
+mvn spring-boot:run
 ```
 
-You should see a list of tables from the `sakila` database.
+### 4. Verify the Application
 
-### Test Database Connection
+Once the application is running, you can test it by accessing:
+- The Hello World endpoint: http://localhost:8080/api
+- The database connection will be automatically tested when you access any JPA repository
 
-To test the connection with the MySQL database, run the following command:
+### Troubleshooting
 
-```bash
-mvn compile
-mvn exec:java -Dexec.mainClass="com.andcelsode.DatabaseConnectionTest"
-```
-If the connection is successful, you will see the message:
+1. If you can't connect to the database, verify:
+   - MySQL container is running: `docker ps`
+   - Database credentials in `application.properties` match your setup
+   - Database port (3306) is not being used by another process
 
-```bash
-Database connection successfully established!
-```
+2. If the application fails to start:
+   - Check the console for error messages
+   - Verify that all dependencies are properly downloaded
+   - Ensure Java 17 or later is installed and configured
+
+### Additional Information
+
+- The application runs on port 8080 by default
+- Database configuration can be modified in `application.properties`
+- JPA/Hibernate is configured to show SQL queries in the console
