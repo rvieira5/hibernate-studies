@@ -53,7 +53,33 @@ Run the Spring Boot application:
 mvn spring-boot:run
 ```
 
-### 4. Verify the Application
+### 4. Running Tests (missing some tests)
+
+The application includes three types of tests:
+
+#### Unit Tests
+- Located in `src/test/java/com/andcelsode`
+- Tests individual components in isolation
+- Run with: `mvn test`
+
+Key test classes:
+- `ActorControllerTest`: Tests the REST endpoints 
+- `ActorServiceTest`: Tests business logic and service layer
+
+#### Integration Tests
+- Located in `src/test/java/integration`
+- Tests components working together with the database
+- Requires a running MySQL instance
+- Run with: `mvn verify`
+
+To run specific test classes:
+```bash
+mvn test -Dtest=ActorServiceTest
+mvn test -Dtest=ActorControllerTest
+mvn test -Dtest=ActorIntegrationTest
+```
+
+### 5. Verify the Application
 
 Once the application is running, you can test it by accessing:
 - The Hello World endpoint: http://localhost:8080/api
