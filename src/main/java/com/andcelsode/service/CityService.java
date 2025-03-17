@@ -16,7 +16,7 @@ public class CityService {
         return cityRepository.findAll();
     }
 
-    public List<City> findByCity(String cityName) {
-        return cityRepository.findByCityContainingIgnoreCase(cityName);
+    public List<City> findByCity(String name) {
+        return cityRepository.findByNameContainingIgnoreCase(name);
     }
 }

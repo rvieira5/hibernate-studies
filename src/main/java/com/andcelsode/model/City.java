@@ -16,7 +16,8 @@ public class City implements Serializable {
     @Column(name = "city_id", nullable = false, unique = true)
     private Short id;
 
-    private String city;
+    @Column(name = "city", nullable = false)
+    private String name;
 
     @Column(name = "last_update", nullable = false)
     private LocalDateTime lastUpdate;
@@ -29,9 +30,9 @@ public class City implements Serializable {
     public City() {
     }
 
-    public City(Short id, String city, LocalDateTime lastUpdate) {
+    public City(Short id, String name, LocalDateTime lastUpdate) {
         this.id = id;
-        this.city = city;
+        this.name = name;
         this.lastUpdate = lastUpdate;
     }
 
@@ -43,12 +44,12 @@ public class City implements Serializable {
         this.id = id;
     }
 
-    public String getCity() {
-        return city;
+    public String getName() {
+        return name;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public LocalDateTime getLastUpdate() {

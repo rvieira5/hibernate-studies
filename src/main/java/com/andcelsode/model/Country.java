@@ -18,7 +18,7 @@ public class Country implements Serializable {
     private Short id;
 
     @Column(name = "country", nullable = false)
-    private String country;
+    private String name;
 
     @Column(name = "last_update", nullable = false)
     private LocalDateTime lastUpdate;
@@ -30,9 +30,9 @@ public class Country implements Serializable {
     public Country() {
     }
 
-    public Country(Short id, String country, LocalDateTime lastUpdate) {
+    public Country(Short id, String name, LocalDateTime lastUpdate) {
         this.id = id;
-        this.country = country;
+        this.name = name;
         this.lastUpdate = lastUpdate;
     }
 
@@ -44,12 +44,12 @@ public class Country implements Serializable {
         this.id = id;
     }
 
-    public String getCountry() {
-        return country;
+    public String getName() {
+        return name;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public LocalDateTime getLastUpdate() {
