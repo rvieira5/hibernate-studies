@@ -100,6 +100,25 @@
                     </java>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>com.googlecode.maven-download-plugin</groupId>
+                <artifactId>download-maven-plugin</artifactId>
+                <version>1.6.8</version>
+                <executions>
+                    <execution>
+                        <id>download-h2-database-sakila-script</id>
+                        <goals>
+                            <goal>wget</goal>
+                        </goals>
+                        <phase>process-resources</phase>
+                        <configuration>
+                            <url>https://raw.githubusercontent.com/maxandersen/sakila-h2/refs/heads/master/sakila.sql</url>
+                            <outputFileName>sakila.sql</outputFileName>
+                            <outputDirectory>.</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 </project>
